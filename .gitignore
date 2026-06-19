@@ -1,0 +1,26 @@
+# Python virtual environments
+backend/.venv/
+.venv/
+venv/
+ENV/
+env/
+
+# Python cache and compiled files
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database files (prevent tracking database instances in Git)
+backend/*.db
+backend/backups/*.db
+*.db
+*.sqlite3
+
+# Node modules and build output (if not ignored elsewhere)
+node_modules/
+dist/
+
+# OS metadata
+.DS_Store
+Thumbs.db

@@ -3,7 +3,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./remote_editor.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    # Use absolute path for local SQLite database to prevent path issues on host platforms like Render
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    db_path = os.path.join(base_dir, "remote_editor.db")
+    DATABASE_URL = f"sqlite:///{db_path}"
 
 # SQLite needs check_same_thread=False, PostgreSQL does not
 if DATABASE_URL.startswith("sqlite"):
