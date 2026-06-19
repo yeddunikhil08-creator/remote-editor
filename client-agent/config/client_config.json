@@ -1,0 +1,11 @@
+{
+  "server_url": "http://127.0.0.1:8000",
+  "client_id": "RADAR-01",
+  "hostname": "RADAR-STATION-01",
+  "username": "viewer",
+  "password": "viewer123",
+  "target_xml_filename": "radar_settings.xml",
+  "current_xml_version": 3,
+  "current_software_version": "1.0",
+  "sync_interval_seconds": 10
+}
