@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Search, Filter, RefreshCw, Download, Printer } from 'lucide-react';
-import { logService } from '../services/api';
+import { logService, API_BASE_URL } from '../services/api';
 import { formatDateString } from '../utils/date';
 
 export default function AuditLogs({ setToast }) {
@@ -38,7 +38,7 @@ export default function AuditLogs({ setToast }) {
       setExportLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await axios.get('http://127.0.0.1:8000/logs/export', {
+      const response = await axios.get(`${API_BASE_URL}/logs/export`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
