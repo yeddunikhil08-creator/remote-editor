@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-dark: #0b0f19;
-  --color-brand-darker: #05070c;
-  --color-brand-card: #111827;
-  --color-brand-border: #1f2937;
-  --color-brand-muted: #9ca3af;
+  --color-brand-dark: #0e1322;
+  --color-brand-darker: #080b14;
+  --color-brand-card: #141b2e;
+  --color-brand-border: #1e293b;
+  --color-brand-muted: #64748b;
   --color-brand-accent: #3b82f6;
   --color-brand-primary: #2563eb;
   --color-brand-success: #10b981;
@@ -19,78 +19,76 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #05070c;
+  background: #080b14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 3px;
+  background: #1e293b;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #334155;
 }
 
 body {
   margin: 0;
-  background-color: #05070c;
-  color: #f3f4f6;
+  background-color: #080b14;
+  color: #f1f5f9;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Solid Obsidian Panels (Human Professional Design) */
+/* Professional Card Panels */
 .panel {
-  background: #0e1322;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  background-color: #0e1322;
+  border: 1px solid #1e293b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
 
 .panel-hover {
-  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .panel-hover:hover {
-  background: #12182c;
-  border-color: rgba(59, 130, 246, 0.25);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gradient-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: #ffffff;
   font-weight: 700;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Clean, standard SaaS primary button */
+.gradient-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
 .gradient-btn:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+  background-color: #1d4ed8;
+}
+
+.gradient-btn:active {
+  transform: translateY(0);
 }
 
 .hover-scale {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 .hover-scale:hover {
-  transform: scale(1.015) translateY(-2px);
-  border-color: rgba(59, 130, 246, 0.2);
-  box-shadow: 0 12px 24px -10px rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+  background-color: #11182c;
 }
 
-.glow-indigo:hover {
-  box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
-}
-
-/* Animations */
+/* Clean UI Animations */
 @keyframes slideIn {
   from {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     opacity: 0;
   }
   to {
@@ -100,120 +98,91 @@ body {
 }
 
 .animate-slide-in {
-  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.99); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.15s ease-out forwards;
 }
 
-/* Dotted Grid Background Overlay */
-.dot-grid-bg {
-  position: relative;
-}
-.dot-grid-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Global Form Input Styling Override */
 input[type="text"], input[type="password"], select, textarea {
-  background-color: rgba(5, 7, 12, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  border-radius: 10px !important;
-  color: #f3f4f6 !important;
-  font-size: 13px !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background-color: #080b14;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  color: #f1f5f9;
+  font-size: 13px;
+  padding: 8px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
-  border-color: rgba(59, 130, 246, 0.45) !important;
-  box-shadow: 0 0 14px rgba(59, 130, 246, 0.12) !important;
-  outline: none !important;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
 }
 
-/* Blinking Status Pills */
+/* Clean status indicator badges (non-blinking) */
 .status-pill-online {
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10b981;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  border-radius: 9999px;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .status-pill-offline {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   color: #f87171;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  border-radius: 9999px;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  font-weight: 500;
 }
 
-.status-dot-blinking {
-  width: 6.5px;
-  height: 6.5px;
+.status-dot-online {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background-color: currentColor;
-  position: relative;
+  background-color: #10b981;
   display: inline-block;
 }
 
-.status-dot-blinking::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+.status-dot-offline {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background-color: currentColor;
-  animation: status-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  background-color: #ef4444;
+  display: inline-block;
 }
 
-@keyframes status-ping {
-  75%, 100% {
-    transform: scale(2.8);
-    opacity: 0;
-  }
-}
-
-/* Sidebar Active Indicator Slider */
+/* Sidebar Active Indicator Bar */
 .active-indicator {
   position: absolute;
   left: 0;
-  top: 15%;
-  height: 70%;
+  top: 0;
+  bottom: 0;
   width: 3px;
   background-color: #3b82f6;
-  border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
-/* Staggered Slide Up and Fade In */
+/* Staggered animations */
 @keyframes slideUpFade {
   from {
-    transform: translateY(10px);
+    transform: translateY(8px);
     opacity: 0;
   }
   to {
@@ -223,32 +192,11 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:f
 }
 
 .animate-fade-up {
-  animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
 }
 
-/* Container scale loading animation */
-@keyframes scaleInFade {
-  from {
-    transform: scale(0.98);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.animate-scale-in {
-  animation: scaleInFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-.delay-75 { animation-delay: 75ms; }
-.delay-150 { animation-delay: 150ms; }
-.delay-225 { animation-delay: 225ms; }
-.delay-300 { animation-delay: 300ms; }
-
-
-
-
+.delay-75 { animation-delay: 40ms; }
+.delay-150 { animation-delay: 80ms; }
+.delay-225 { animation-delay: 120ms; }
+.delay-300 { animation-delay: 160ms; }

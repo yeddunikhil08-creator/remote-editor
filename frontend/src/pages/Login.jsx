@@ -44,36 +44,32 @@ export default function Login({ setToast, setToken, setUser }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-darker relative overflow-hidden px-4 dot-grid-bg">
-      <div className="w-full max-w-md panel animate-scale-in p-8 rounded-3xl border border-brand-border/50 shadow-2xl relative z-10 transition-all hover:border-blue-500/20">
+    <div className="min-h-screen flex items-center justify-center bg-brand-darker px-4">
+      <div className="w-full max-w-sm panel animate-scale-in p-6 rounded-lg shadow-sm border border-brand-border">
         
         {/* Header Logo & Titles */}
-        <div className="text-center mb-8">
-          <div className="inline-flex p-3 bg-brand-dark border border-brand-border rounded-2xl mb-3 shadow-md relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-indigo-500 opacity-20 blur-[1px] group-hover:opacity-40 transition-opacity" />
-            <Server className="w-8 h-8 animate-pulse text-blue-400 relative z-10" />
+        <div className="text-center mb-6">
+          <div className="inline-flex p-2.5 bg-brand-dark border border-brand-border rounded-lg mb-3">
+            <Server className="w-5 h-5 text-blue-500" />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-wider gradient-text">RCSUMS</h1>
-          <p className="text-[10px] text-brand-muted mt-1.5 uppercase tracking-widest font-bold">
-            Secure Gateway Access Portal
-          </p>
-          <p className="text-[11px] text-brand-muted/70 italic mt-1.5 font-medium">
-            "Remote Configuration & Software Update Management System"
+          <h1 className="text-lg font-bold text-white">Sign in to RCSUMS</h1>
+          <p className="text-xs text-brand-muted mt-1">
+            Remote Configuration & Software Update Management System
           </p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-4">
           {error && (
-            <div className="p-3 bg-brand-danger/10 border border-brand-danger/30 text-brand-danger text-xs rounded-xl text-center font-bold animate-slide-in">
+            <div className="p-2 bg-brand-danger/10 border border-brand-danger/20 text-brand-danger text-xs rounded text-center font-medium animate-slide-in">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2">Username</label>
+            <label className="block text-xs font-medium text-gray-300 mb-1.5">Username</label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-brand-muted">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-brand-muted">
                 <User className="w-4 h-4" />
               </span>
               <input
@@ -81,15 +77,15 @@ export default function Login({ setToast, setToken, setUser }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter username"
-                className="w-full pl-10 pr-4 py-3 bg-brand-darker/60 border border-brand-border/60 rounded-xl text-gray-100 placeholder-gray-600 focus:outline-none focus:border-brand-primary transition-all text-xs"
+                className="w-full !pl-10 pr-3 py-2 bg-brand-darker border border-brand-border rounded text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent transition-all text-xs"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2">Password</label>
+            <label className="block text-xs font-medium text-gray-300 mb-1.5">Password</label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-brand-muted">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-brand-muted">
                 <Lock className="w-4 h-4" />
               </span>
               <input
@@ -97,12 +93,12 @@ export default function Login({ setToast, setToken, setUser }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="w-full pl-10 pr-10 py-3 bg-brand-darker/60 border border-brand-border/60 rounded-xl text-gray-100 placeholder-gray-600 focus:outline-none focus:border-brand-primary transition-all text-xs"
+                className="w-full !pl-10 !pr-10 py-2 bg-brand-darker border border-brand-border rounded text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent transition-all text-xs"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-brand-muted hover:text-gray-300"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-brand-muted hover:text-gray-300 cursor-pointer"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -112,39 +108,39 @@ export default function Login({ setToast, setToken, setUser }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 gradient-btn rounded-xl transition-all focus:outline-none text-xs disabled:opacity-50 disabled:pointer-events-none hover-scale cursor-pointer"
+            className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs transition-colors cursor-pointer disabled:opacity-50 disabled:pointer-events-none mt-2"
           >
-            {loading ? 'Authenticating System...' : 'Access Console'}
+            {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
 
         {/* Quick Demo Login Badges */}
-        <div className="mt-8 pt-6 border-t border-brand-border/40">
-          <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 flex items-center justify-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-brand-primary" />
-            Quick Access Demo Profiles
+        <div className="mt-6 pt-6 border-t border-brand-border">
+          <p className="text-center text-[11px] font-medium text-gray-400 mb-3 flex items-center justify-center gap-1.5">
+            <Terminal className="w-3.5 h-3.5 text-brand-muted" />
+            Select a demo profile to sign in
           </p>
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-2">
             <button
               onClick={() => handleQuickLogin('admin', 'admin123')}
-              className="px-2 py-2 bg-brand-dark/30 hover:bg-brand-dark/80 hover:border-blue-500/40 border border-brand-border/40 rounded-xl text-[11px] font-bold text-gray-200 transition-all hover-scale cursor-pointer"
+              className="px-2 py-1.5 bg-brand-dark hover:bg-brand-darker border border-brand-border rounded text-left transition-all cursor-pointer"
             >
-              Admin
-              <span className="block text-[8px] text-gray-400 font-extrabold mt-0.5">Read/Write</span>
+              <span className="font-semibold text-xs text-gray-200 block">Admin</span>
+              <span className="text-[9px] text-brand-muted block mt-0.5">Full Access</span>
             </button>
             <button
               onClick={() => handleQuickLogin('operator', 'operator123')}
-              className="px-2 py-2 bg-brand-dark/30 hover:bg-brand-dark/80 hover:border-blue-500/40 border border-brand-border/40 rounded-xl text-[11px] font-bold text-gray-200 transition-all hover-scale cursor-pointer"
+              className="px-2 py-1.5 bg-brand-dark hover:bg-brand-darker border border-brand-border rounded text-left transition-all cursor-pointer"
             >
-              Operator
-              <span className="block text-[8px] text-gray-400 font-extrabold mt-0.5">XML Edit</span>
+              <span className="font-semibold text-xs text-gray-200 block">Operator</span>
+              <span className="text-[9px] text-brand-muted block mt-0.5">XML Editor</span>
             </button>
             <button
               onClick={() => handleQuickLogin('viewer', 'viewer123')}
-              className="px-2 py-2 bg-brand-dark/30 hover:bg-brand-dark/80 hover:border-blue-500/40 border border-brand-border/40 rounded-xl text-[11px] font-bold text-gray-200 transition-all hover-scale cursor-pointer"
+              className="px-2 py-1.5 bg-brand-dark hover:bg-brand-darker border border-brand-border rounded text-left transition-all cursor-pointer"
             >
-              Viewer
-              <span className="block text-[8px] text-gray-400 font-extrabold mt-0.5">Read Only</span>
+              <span className="font-semibold text-xs text-gray-200 block">Viewer</span>
+              <span className="text-[9px] text-brand-muted block mt-0.5">Read Only</span>
             </button>
           </div>
         </div>

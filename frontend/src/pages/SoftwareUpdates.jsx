@@ -88,73 +88,73 @@ export default function SoftwareUpdates({ setToast }) {
     <div className="space-y-6">
       
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border/60 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">Software Update Center</h1>
-          <p className="text-sm text-brand-muted mt-1">Manage firmware update patches and software bundle zip files distributed to remote node instances.</p>
+          <h1 className="text-xl font-bold text-white">Software Updates</h1>
+          <p className="text-xs text-brand-muted mt-1">Upload, distribute, and manage software packages and update bundles.</p>
         </div>
         <button
           onClick={loadUpdates}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-dark hover:bg-brand-border border border-brand-border rounded-lg text-sm transition-colors text-white"
+          className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-brand-dark hover:bg-brand-darker border border-brand-border rounded text-xs transition-colors text-white font-medium cursor-pointer"
         >
-          <RefreshCw className="w-4 h-4" />
-          Refresh Logs
+          <RefreshCw className="w-3.5 h-3.5" />
+          Refresh
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Upload Panel (Admin/Operator) */}
-        <div className="panel animate-fade-up delay-75 p-5 rounded-xl border border-brand-border/40 h-fit space-y-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <ArrowUpCircle className="w-4.5 h-4.5 text-brand-accent" />
-            Publish Firmware Release
+        <div className="panel p-5 rounded border border-brand-border h-fit space-y-4">
+          <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <ArrowUpCircle className="w-4.5 h-4.5 text-blue-500" />
+            Publish Software Release
           </h2>
           
           {isReadOnly ? (
-            <div className="p-4 bg-brand-dark/40 border border-brand-border/40 text-brand-muted text-xs rounded-lg flex items-center gap-2">
+            <div className="p-3 bg-brand-dark border border-brand-border text-brand-muted text-xs rounded flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-brand-warning shrink-0" />
               Viewer profile permissions are read-only.
             </div>
           ) : (
-            <form onSubmit={handleUploadSubmit} className="space-y-4 text-xs font-semibold">
+            <form onSubmit={handleUploadSubmit} className="space-y-4 text-xs font-medium">
               <div className="space-y-1.5">
-                <label className="block text-gray-300 uppercase tracking-wider">Release Version Tag</label>
+                <label className="block text-gray-300">Version Tag</label>
                 <input
                   type="text"
                   value={version}
                   onChange={(e) => setVersion(e.target.value)}
                   placeholder="e.g. 2.0"
-                  className="w-full p-2.5 bg-brand-darker border border-brand-border rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent"
+                  className="w-full p-2 bg-brand-darker border border-brand-border rounded text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-gray-300 uppercase tracking-wider">ZIP Software Archive</label>
+                <label className="block text-gray-300">Software Package (.zip)</label>
                 <input
                   type="file"
                   ref={fileInputRef}
                   onChange={handleFileChange}
                   accept=".zip"
-                  className="w-full text-brand-muted text-xs file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-dark file:text-blue-400 hover:file:bg-brand-border file:cursor-pointer"
+                  className="w-full text-brand-muted text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-brand-border file:text-xs file:font-medium file:bg-brand-darker file:text-blue-400 hover:file:bg-brand hover:file:text-white file:cursor-pointer"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-gray-300 uppercase tracking-wider">Release Changelog Notes</label>
+                <label className="block text-gray-300">Changelog & Release Notes</label>
                 <textarea
                   value={releaseNotes}
                   onChange={(e) => setReleaseNotes(e.target.value)}
-                  placeholder="Summarize patch updates and software improvements..."
+                  placeholder="Summarize updates and bug fixes..."
                   rows={4}
-                  className="w-full p-2.5 bg-brand-darker border border-brand-border rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent font-normal"
+                  className="w-full p-2 bg-brand-darker border border-brand-border rounded text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-accent font-normal text-xs"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={uploading}
-                className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-transform hover-scale flex items-center justify-center gap-2 shadow-md shadow-blue-950/20"
+                className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
               >
                 {uploading ? (
                   <>
@@ -164,7 +164,7 @@ export default function SoftwareUpdates({ setToast }) {
                 ) : (
                   <>
                     <Upload className="w-4 h-4" />
-                    Upload & Deploy Package
+                    Upload & Publish
                   </>
                 )}
               </button>
@@ -173,44 +173,44 @@ export default function SoftwareUpdates({ setToast }) {
         </div>
 
         {/* Update Logs History List (All) */}
-        <div className="panel animate-fade-up delay-150 p-5 rounded-xl border border-brand-border/40 lg:col-span-2 space-y-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <FileArchive className="w-4.5 h-4.5 text-brand-accent" />
-            Release Ledger
+        <div className="panel p-5 rounded border border-brand-border lg:col-span-2 space-y-4">
+          <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <FileArchive className="w-4.5 h-4.5 text-blue-500" />
+            Release History
           </h2>
 
           {loading ? (
             <div className="flex justify-center py-10">
-              <RefreshCw className="w-6 h-6 text-brand-accent animate-spin" />
+              <RefreshCw className="w-5 h-5 text-blue-500 animate-spin" />
             </div>
           ) : updates.length === 0 ? (
-            <div className="p-8 text-center text-xs text-brand-muted italic border border-dashed border-brand-border rounded-xl">
-              No firmware update modules deployed on the telemetry host.
+            <div className="p-8 text-center text-xs text-brand-muted italic border border-dashed border-brand-border rounded">
+              No software updates published.
             </div>
           ) : (
             <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
               {updates.map((update) => (
                 <div 
                   key={update.id} 
-                  className="p-4 bg-brand-dark/40 border border-brand-border/40 rounded-xl hover:bg-brand-dark/60 transition-colors flex flex-col md:flex-row justify-between gap-4"
+                  className="p-3.5 bg-brand-dark border border-brand-border rounded hover:bg-brand-darker transition-colors flex flex-col md:flex-row justify-between gap-4"
                 >
                   <div className="space-y-2 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 bg-blue-950/40 border border-blue-500/30 text-blue-400 font-extrabold text-xs rounded-md">
+                    <div className="flex items-center gap-3">
+                      <span className="px-2 py-0.5 bg-blue-600/10 border border-blue-500/20 text-blue-400 font-semibold text-xs rounded">
                         Version {update.version}
                       </span>
                       <span className="text-[10px] text-brand-muted flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
+                        <Calendar className="w-3.5 h-3.5" />
                         {formatLocalDate(update.upload_date)}
                       </span>
                       <span className="text-[10px] text-brand-muted flex items-center gap-1">
-                        <Info className="w-3 h-3" />
+                        <Info className="w-3.5 h-3.5" />
                         Size: {formatBytes(update.package_size)}
                       </span>
                     </div>
                     
                     {update.release_notes ? (
-                      <p className="text-xs text-brand-muted bg-brand-darker/50 p-2.5 rounded-lg border border-brand-border/30">
+                      <p className="text-xs text-brand-muted bg-brand-darker p-2.5 rounded border border-brand-border/60">
                         {update.release_notes}
                       </p>
                     ) : (
@@ -223,7 +223,7 @@ export default function SoftwareUpdates({ setToast }) {
                       href={updateService.getDownloadUrl(update.version)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-3 py-2 bg-brand-dark hover:bg-brand-border border border-brand-border text-blue-400 rounded-lg text-xs font-bold transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-darker hover:bg-brand border border-brand-border text-blue-400 rounded text-xs font-medium transition-colors cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />
                       Download ZIP

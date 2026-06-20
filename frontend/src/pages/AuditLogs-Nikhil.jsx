@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Search, Filter, RefreshCw, Download, Printer } from 'lucide-react';
-import { logService } from '../services/api';
+import { logService, API_BASE_URL } from '../services/api';
 import { formatDateString } from '../utils/date';
 
 export default function AuditLogs({ setToast }) {
@@ -38,7 +38,7 @@ export default function AuditLogs({ setToast }) {
       setExportLoading(true);
       const token = localStorage.getItem('token');
       
-      const response = await axios.get('http://127.0.0.1:8000/logs/export', {
+      const response = await axios.get(`${API_BASE_URL}/logs/export`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
@@ -67,18 +67,19 @@ export default function AuditLogs({ setToast }) {
   const getActionBadge = (action) => {
     switch (action) {
       case 'Upload':
+        return 'bg-emerald-950/45 border-emerald-500/40 text-brand-success';
       case 'Edit':
-        return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+        return 'bg-emerald-950/45 border-emerald-500/40 text-brand-success';
       case 'Rollback':
       case 'Restore':
-        return 'bg-amber-500/10 border-amber-500/20 text-amber-400';
+        return 'bg-amber-950/45 border-amber-500/40 text-brand-warning';
       case 'Delete':
-        return 'bg-red-500/10 border-red-500/20 text-red-400';
+        return 'bg-red-950/45 border-red-500/40 text-brand-danger';
       case 'Login':
       case 'Register User':
-        return 'bg-purple-500/10 border-purple-500/20 text-purple-400';
+        return 'bg-purple-950/45 border-purple-500/40 text-purple-400';
       default:
-        return 'bg-brand-darker border-brand-border text-brand-muted';
+        return 'bg-brand-dark border-brand-border text-brand-muted';
     }
   };
 
@@ -86,11 +87,11 @@ export default function AuditLogs({ setToast }) {
     <div className="space-y-6">
       
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border pb-5 no-print">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border/60 pb-5 no-print">
         <div>
-          <h1 className="text-xl font-bold text-white">System Audit Logs</h1>
-          <p className="text-xs text-brand-muted mt-1">
-            Immutable tracking of administrative actions, software updates, and system events.
+          <h1 className="text-2xl font-bold tracking-tight text-white">System Audit Trail Ledger</h1>
+          <p className="text-sm text-brand-muted mt-1">
+            Immutable tracking logs monitoring admin commands, update installations, security authentications, and synchronizations.
           </p>
         </div>
         
@@ -98,14 +99,14 @@ export default function AuditLogs({ setToast }) {
           <button
             onClick={handleExportCSV}
             disabled={exportLoading}
-            className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-brand-darker hover:bg-brand border border-brand-border rounded text-xs font-medium transition-colors text-blue-400 disabled:opacity-50 cursor-pointer"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-dark hover:bg-brand-border border border-brand-border rounded-lg text-xs font-bold transition-colors text-blue-400 disabled:opacity-50"
           >
             <Download className="w-4 h-4" />
             Export CSV
           </button>
           <button
             onClick={handlePrintPDF}
-            className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-brand-darker hover:bg-brand border border-brand-border rounded text-xs font-medium transition-colors text-brand-warning cursor-pointer"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-dark hover:bg-brand-border border border-brand-border rounded-lg text-xs font-bold transition-colors text-brand-warning"
           >
             <Printer className="w-4 h-4" />
             Print / PDF
@@ -135,7 +136,7 @@ export default function AuditLogs({ setToast }) {
       </div>
 
       {/* Search and Filter Panel */}
-      <form onSubmit={handleSearchSubmit} className="flex flex-col md:flex-row gap-3 items-center justify-between panel p-4 rounded border border-brand-border no-print">
+      <form onSubmit={handleSearchSubmit} className="flex flex-col md:flex-row gap-3 items-center justify-between panel animate-fade-up delay-75 p-4 rounded-xl border border-brand-border/40 no-print">
         
         {/* Search Input */}
         <div className="relative w-full md:flex-1">
@@ -147,7 +148,7 @@ export default function AuditLogs({ setToast }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search logs by keyword, username, or action..."
-            className="w-full pl-9 pr-3 py-1.5 bg-brand-darker border border-brand-border rounded text-gray-100 text-xs placeholder-gray-500 focus:outline-none focus:border-blue-600 transition-colors"
+            className="w-full pl-10 pr-4 py-2 bg-brand-darker border border-brand-border rounded-lg text-gray-100 text-xs placeholder-gray-500 focus:outline-none focus:border-blue-600 transition-colors"
           />
         </div>
 
@@ -160,7 +161,7 @@ export default function AuditLogs({ setToast }) {
             <select
               value={actionFilter}
               onChange={(e) => setActionFilter(e.target.value)}
-              className="w-full pl-8 pr-6 py-1.5 bg-brand-darker border border-brand-border rounded text-gray-300 text-xs focus:outline-none focus:border-blue-500 appearance-none cursor-pointer"
+              className="w-full pl-9 pr-6 py-2 bg-brand-darker border border-brand-border rounded-lg text-gray-300 text-xs focus:outline-none focus:border-blue-500 appearance-none cursor-pointer"
             >
               <option value="">Filter Action</option>
               <option value="Upload">Upload XML</option>
@@ -178,7 +179,7 @@ export default function AuditLogs({ setToast }) {
 
           <button
             type="submit"
-            className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs uppercase transition-colors shrink-0 cursor-pointer"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs uppercase tracking-wider transition-colors shrink-0 shadow-md shadow-blue-950/20"
           >
             Query
           </button>
@@ -187,10 +188,10 @@ export default function AuditLogs({ setToast }) {
       </form>
 
       {/* Logs Table Layout */}
-      <div className="panel rounded border border-brand-border overflow-hidden print-container">
+      <div className="panel animate-fade-up delay-150 rounded-xl border border-brand-border/40 overflow-hidden print-container">
         {loading ? (
           <div className="flex flex-col items-center justify-center p-12 gap-3 no-print">
-            <RefreshCw className="w-6 h-6 text-blue-500 animate-spin" />
+            <RefreshCw className="w-6 h-6 text-brand-accent animate-spin" />
             <span className="text-xs text-brand-muted">Fetching audit traces...</span>
           </div>
         ) : logs.length === 0 ? (
@@ -201,7 +202,7 @@ export default function AuditLogs({ setToast }) {
           <div className="overflow-x-auto" id="printable-table">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-brand-dark/30 border-b border-brand-border text-brand-muted uppercase font-bold tracking-wider">
+                <tr className="bg-brand-dark/45 border-b border-brand-border/60 text-brand-muted uppercase font-bold tracking-wider">
                   <th className="p-4 w-48">Timestamp (IST)</th>
                   <th className="p-4 w-36 text-center">Action</th>
                   <th className="p-4 w-32">User</th>
@@ -215,7 +216,7 @@ export default function AuditLogs({ setToast }) {
                       {formatDateString(log.timestamp)}
                     </td>
                     <td className="p-4 text-center shrink-0">
-                      <span className={`inline-block px-2.5 py-0.5 rounded border text-[10px] font-semibold ${getActionBadge(log.action)}`}>
+                      <span className={`inline-block px-2.5 py-0.5 rounded border text-[10px] font-bold ${getActionBadge(log.action)}`}>
                         {log.action}
                       </span>
                     </td>

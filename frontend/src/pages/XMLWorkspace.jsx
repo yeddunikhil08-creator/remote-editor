@@ -191,15 +191,15 @@ export default function XMLWorkspace({ setToast }) {
     <div className="h-[calc(100vh-140px)] flex gap-4 overflow-hidden">
       
       {/* File Sidebar */}
-      <div className="w-64 flex flex-col panel rounded-xl border border-brand-border/40 p-4 shrink-0 animate-fade-up delay-75">
-        <div className="flex items-center justify-between border-b border-brand-border/40 pb-3 mb-3">
-          <span className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <FileCode className="w-4 h-4 text-brand-accent" />
+      <div className="w-64 flex flex-col panel rounded border border-brand-border p-4 shrink-0 animate-fade-up delay-75">
+        <div className="flex items-center justify-between border-b border-brand-border pb-3 mb-3">
+          <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+            <FileCode className="w-4 h-4 text-blue-500" />
             Configurations
           </span>
           <button 
             onClick={() => loadFiles()}
-            className="p-1 hover:bg-brand-dark rounded text-brand-muted hover:text-white"
+            className="p-1 hover:bg-brand-darker rounded text-brand-muted hover:text-white cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
@@ -217,10 +217,10 @@ export default function XMLWorkspace({ setToast }) {
             />
             <button
               onClick={handleUploadClick}
-              className="w-full flex items-center justify-center gap-2 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs uppercase tracking-wider transition-colors shadow-md shadow-blue-950/20"
+              className="w-full flex items-center justify-center gap-2 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs uppercase transition-colors cursor-pointer"
             >
               <Upload className="w-4 h-4" />
-              Upload XML Model
+              Upload XML File
             </button>
           </div>
         )}
@@ -236,15 +236,15 @@ export default function XMLWorkspace({ setToast }) {
               <div
                 key={file.id}
                 onClick={() => handleSelectFile(file)}
-                className={`p-3 rounded-lg border text-left cursor-pointer transition-colors flex flex-col gap-1 ${
+                className={`p-2.5 rounded border text-left cursor-pointer transition-all flex flex-col gap-1 ${
                   selectedFile?.filename === file.filename
-                    ? 'bg-blue-950/40 border-blue-500/30 text-blue-400 font-bold shadow-md shadow-blue-950/20'
-                    : 'bg-brand-dark/40 border-brand-border/40 text-brand-muted hover:bg-brand-dark hover:text-white'
+                    ? 'bg-blue-600/10 border-blue-500/30 text-blue-400 font-semibold'
+                    : 'bg-brand-darker/60 border-brand-border text-brand-muted hover:bg-brand-dark hover:text-white'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold truncate pr-2">{file.filename}</span>
-                  <span className="text-[9px] bg-brand-dark px-1.5 py-0.5 rounded border border-brand-border text-blue-400 font-bold">
+                <div className="flex items-center justify-between gap-2 min-w-0">
+                  <span className="text-xs font-semibold truncate flex-1">{file.filename}</span>
+                  <span className="text-[9px] bg-brand-dark px-1.5 py-0.5 rounded border border-brand-border text-blue-400 font-semibold shrink-0">
                     v{file.current_version}
                   </span>
                 </div>
@@ -258,11 +258,11 @@ export default function XMLWorkspace({ setToast }) {
       </div>
 
       {/* Main Workspace Panel */}
-      <div className="flex-1 flex flex-col panel rounded-xl border border-brand-border/40 overflow-hidden relative animate-fade-up delay-150">
+      <div className="flex-1 flex flex-col panel rounded border border-brand-border overflow-hidden relative animate-fade-up delay-150">
         
         {loading && (
           <div className="absolute inset-0 bg-brand-darker/60 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-3">
-            <RefreshCw className="w-8 h-8 text-brand-accent animate-spin" />
+            <RefreshCw className="w-8 h-8 text-blue-500 animate-spin" />
             <span className="text-xs text-brand-muted">Loading file workspace...</span>
           </div>
         )}
@@ -270,9 +270,9 @@ export default function XMLWorkspace({ setToast }) {
         {selectedFile ? (
           <>
             {/* Active File Header */}
-            <div className="p-4 border-b border-brand-border/40 flex items-center justify-between bg-brand-dark/30 shrink-0">
+            <div className="p-4 border-b border-brand-border flex items-center justify-between bg-brand-dark/20 shrink-0">
               <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-brand-accent" />
+                <FileText className="w-5 h-5 text-blue-500" />
                 <div>
                   <h2 className="text-sm font-bold text-white">{selectedFile.filename}</h2>
                   <p className="text-[10px] text-brand-muted">
@@ -285,10 +285,10 @@ export default function XMLWorkspace({ setToast }) {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowHistory(!showHistory)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-medium transition-colors cursor-pointer ${
                     showHistory
-                      ? 'bg-blue-950/40 border-blue-500/30 text-blue-400 font-bold shadow-md shadow-blue-950/20'
-                      : 'bg-brand-dark border-brand-border text-brand-muted hover:text-white'
+                      ? 'bg-blue-600/10 border-blue-500/30 text-blue-400 font-semibold'
+                      : 'bg-brand-darker border-brand-border text-brand-muted hover:text-white'
                   }`}
                 >
                   <History className="w-3.5 h-3.5" />
@@ -302,10 +302,10 @@ export default function XMLWorkspace({ setToast }) {
                       setCompareV2(versions[1].version_number);
                     }
                   }}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-medium transition-colors cursor-pointer ${
                     compareMode
-                      ? 'bg-blue-950/40 border-blue-500/30 text-blue-400 font-bold shadow-md shadow-blue-950/20'
-                      : 'bg-brand-dark border-brand-border text-brand-muted hover:text-white'
+                      ? 'bg-blue-600/10 border-blue-500/30 text-blue-400 font-semibold'
+                      : 'bg-brand-darker border-brand-border text-brand-muted hover:text-white'
                   }`}
                 >
                   <GitCompare className="w-3.5 h-3.5" />
@@ -314,7 +314,7 @@ export default function XMLWorkspace({ setToast }) {
                 {!isReadOnly && !compareMode && (
                    <button
                      onClick={() => setShowSaveModal(true)}
-                     className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs tracking-wider uppercase transition-colors shadow-md shadow-blue-950/20"
+                     className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs uppercase transition-colors cursor-pointer"
                    >
                     <Save className="w-3.5 h-3.5" />
                     Commit Edits
@@ -323,7 +323,7 @@ export default function XMLWorkspace({ setToast }) {
                 {userRole === 'Admin' && (
                   <button
                     onClick={() => handleDeleteFile(selectedFile.filename)}
-                    className="p-1.5 hover:bg-brand-danger/20 border border-transparent hover:border-brand-danger/40 rounded-lg text-brand-muted hover:text-brand-danger transition-all"
+                    className="p-1.5 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 rounded text-brand-muted hover:text-red-400 transition-all cursor-pointer"
                     title="Delete File"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -334,13 +334,13 @@ export default function XMLWorkspace({ setToast }) {
 
             {/* Compare Bar if enabled */}
             {compareMode && (
-              <div className="p-3 bg-brand-dark/60 border-b border-brand-border/40 flex items-center justify-between gap-4 shrink-0">
+              <div className="p-3 bg-brand-dark border-b border-brand-border flex items-center justify-between gap-4 shrink-0">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-gray-300">Compare Revisions:</span>
+                  <span className="text-xs font-semibold text-gray-300">Compare Revisions:</span>
                   <select
                     value={compareV1}
                     onChange={(e) => setCompareV1(e.target.value)}
-                    className="bg-brand-darker border border-brand-border text-gray-200 text-xs rounded-md px-2 py-1 focus:outline-none"
+                    className="bg-brand-darker border border-brand-border text-gray-200 text-xs rounded px-2.5 py-1 focus:outline-none"
                   >
                     <option value="">Select version</option>
                     {versions.map(v => (
@@ -351,7 +351,7 @@ export default function XMLWorkspace({ setToast }) {
                   <select
                     value={compareV2}
                     onChange={(e) => setCompareV2(e.target.value)}
-                    className="bg-brand-darker border border-brand-border text-gray-200 text-xs rounded-md px-2 py-1 focus:outline-none"
+                    className="bg-brand-darker border border-brand-border text-gray-200 text-xs rounded px-2.5 py-1 focus:outline-none"
                   >
                     <option value="">Select version</option>
                     {versions.map(v => (
@@ -361,14 +361,14 @@ export default function XMLWorkspace({ setToast }) {
                   <button
                     onClick={triggerCompare}
                     disabled={compareLoading}
-                    className="px-3 py-1 bg-brand-dark hover:bg-brand-border border border-brand-border rounded text-xs text-brand-accent transition-colors font-semibold"
+                    className="px-3 py-1 bg-brand-darker hover:bg-brand border border-brand-border rounded text-xs text-blue-400 transition-colors font-medium cursor-pointer"
                   >
                     {compareLoading ? 'Loading diff...' : 'Calculate Diff'}
                   </button>
                 </div>
                 <button
                   onClick={() => setCompareMode(false)}
-                  className="p-1 hover:bg-brand-dark rounded text-brand-muted hover:text-white"
+                  className="p-1 hover:bg-brand-darker rounded text-brand-muted hover:text-white cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -396,7 +396,7 @@ export default function XMLWorkspace({ setToast }) {
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-brand-muted text-xs p-6 gap-2">
-                      <GitCompare className="w-8 h-8 text-brand-accent/50 animate-pulse" />
+                      <GitCompare className="w-8 h-8 text-blue-500/50" />
                       Select two historical revisions and trigger "Calculate Diff" to evaluate modification deltas.
                     </div>
                   )
@@ -423,15 +423,15 @@ export default function XMLWorkspace({ setToast }) {
 
               {/* Revision History Sidebar Drawer */}
               {showHistory && (
-                <div className="w-80 border-l border-brand-border/40 bg-brand-dark/20 flex flex-col shrink-0">
-                  <div className="p-3 border-b border-brand-border/40 flex items-center justify-between bg-brand-dark/40">
+                <div className="w-80 border-l border-brand-border bg-brand-dark/20 flex flex-col shrink-0">
+                  <div className="p-3 border-b border-brand-border flex items-center justify-between bg-brand-dark/40">
                     <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                      <History className="w-4 h-4 text-brand-accent" />
+                      <History className="w-4 h-4 text-blue-500" />
                       Revision Timeline
                     </span>
                     <button 
                       onClick={() => setShowHistory(false)}
-                      className="p-1 hover:bg-brand-dark rounded text-brand-muted hover:text-white"
+                      className="p-1 hover:bg-brand-darker rounded text-brand-muted hover:text-white cursor-pointer"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -439,26 +439,26 @@ export default function XMLWorkspace({ setToast }) {
 
                   <div className="flex-1 overflow-y-auto p-3 space-y-4">
                     {versions.map((ver, idx) => (
-                      <div key={idx} className="relative pl-5 pb-2 border-l border-brand-border/60 last:border-0 last:pb-0">
+                      <div key={idx} className="relative pl-5 pb-2 border-l border-brand-border last:border-0 last:pb-0">
                         {/* Bullet Icon */}
-                        <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-accent border border-brand-darker" />
+                        <div className="absolute left-[-4.5px] top-2 w-2 h-2 rounded-full bg-blue-500 border border-brand-darker" />
                         
-                        <div className="p-2.5 bg-brand-dark/60 border border-brand-border/40 rounded-lg space-y-1.5">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-extrabold text-white">Version {ver.version_number}</span>
-                            <span className="text-[9px] text-brand-muted">
+                        <div className="p-3 bg-brand-darker border border-brand-border/60 rounded space-y-1.5">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-xs font-bold text-white">Version {ver.version_number}</span>
+                            <span className="text-[9px] text-brand-muted shrink-0">
                               {formatLocalTime(ver.timestamp)}
                             </span>
                           </div>
-                          <p className="text-[10px] text-brand-muted/90 italic">
-                            "{ver.change_notes || 'No log notes added.'}"
+                          <p className="text-[10px] text-brand-muted italic leading-relaxed">
+                            "{ver.change_notes || 'No change notes.'}"
                           </p>
                           <div className="flex items-center justify-between pt-1 border-t border-brand-border/20 text-[9px]">
-                            <span className="text-brand-accent font-medium">By: {ver.editor || 'system'}</span>
+                            <span className="text-blue-400 font-medium">By: {ver.editor || 'system'}</span>
                             {!isReadOnly && ver.version_number !== selectedFile.current_version && (
                               <button
                                 onClick={() => handleRollback(ver.version_number)}
-                                className="px-2 py-0.5 bg-brand-accent/10 hover:bg-brand-accent text-brand-accent hover:text-brand-darker border border-brand-accent/20 rounded font-semibold transition-colors"
+                                className="px-2 py-0.5 bg-blue-600/15 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/20 rounded font-medium transition-colors cursor-pointer"
                               >
                                 Rollback
                               </button>
@@ -475,7 +475,7 @@ export default function XMLWorkspace({ setToast }) {
           </>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-brand-muted text-xs p-6 gap-3">
-            <FileCode className="w-12 h-12 text-brand-accent/30" />
+            <FileCode className="w-12 h-12 text-blue-500/20" />
             <p>Select a configuration schema from the sidebar catalog to edit contents.</p>
           </div>
         )}
@@ -485,13 +485,13 @@ export default function XMLWorkspace({ setToast }) {
       {/* Commit Notes Modal */}
       {showSaveModal && (
         <div className="fixed inset-0 bg-brand-darker/70 backdrop-blur-sm z-[999] flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-brand-dark border border-brand-border rounded-xl p-5 shadow-2xl space-y-4">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <CheckCircle className="w-4.5 h-4.5 text-brand-accent" />
+          <div className="w-full max-w-sm bg-brand-dark border border-brand-border rounded p-5 shadow-xl space-y-4">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-500" />
               Commit Configuration Changes
             </h3>
-            <p className="text-xs text-brand-muted">
-              Specify documentation notes outlining changes applied. This compiles a new immutable revision tag.
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Specify changes applied. This compiles a new immutable revision tag.
             </p>
             <div>
               <textarea
@@ -499,7 +499,7 @@ export default function XMLWorkspace({ setToast }) {
                 onChange={(e) => setChangeNotes(e.target.value)}
                 placeholder="Describe what configurations were modified..."
                 rows={3}
-                className="w-full p-2.5 bg-brand-darker border border-brand-border rounded-lg text-gray-100 text-xs placeholder-gray-500 focus:outline-none focus:border-brand-accent"
+                className="w-full p-2.5 bg-brand-darker border border-brand-border rounded text-gray-100 text-xs placeholder-gray-500 focus:outline-none focus:border-brand-accent"
               />
             </div>
             <div className="flex justify-end gap-2 text-xs">
@@ -508,13 +508,13 @@ export default function XMLWorkspace({ setToast }) {
                   setShowSaveModal(false);
                   setChangeNotes('');
                 }}
-                className="px-3.5 py-2 hover:bg-brand-dark border border-brand-border text-brand-muted hover:text-white rounded-lg transition-colors font-semibold"
+                className="px-3.5 py-2 hover:bg-brand-darker border border-brand-border text-brand-muted hover:text-white rounded transition-colors font-medium cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveEdits}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-md shadow-blue-950/20"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded transition-colors cursor-pointer"
               >
                 Save & Deploy
               </button>

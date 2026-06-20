@@ -8,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area 
 } from 'recharts';
-import { xmlService, clientService, updateService, logService, API_BASE_URL } from '../services/api';
+import { xmlService, clientService, updateService, logService } from '../services/api';
 import { formatShortDate, formatLocalTime } from '../utils/date';
 
 export default function Dashboard({ setToast }) {
@@ -122,17 +122,17 @@ export default function Dashboard({ setToast }) {
     <div className="space-y-6">
       
       {/* Title Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border/60 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">System Telemetry & Gateway Supervision</h1>
-          <p className="text-sm text-brand-muted mt-1">Real-time monitoring and software configuration sync audits for active operational nodes.</p>
+          <h1 className="text-xl font-bold text-white">System Dashboard</h1>
+          <p className="text-xs text-brand-muted mt-1">Overview of device configurations, software updates, active client nodes, and system activity.</p>
         </div>
         <button
           onClick={loadData}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-brand-dark hover:bg-brand-border border border-brand-border rounded-lg text-sm transition-colors text-white"
+          className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-brand-dark hover:bg-brand-darker border border-brand-border rounded text-xs transition-colors text-white font-medium cursor-pointer"
         >
-          <RefreshCw className="w-4 h-4" />
-          Sync Gateway
+          <RefreshCw className="w-3.5 h-3.5" />
+          Refresh
         </button>
       </div>
 
@@ -140,54 +140,54 @@ export default function Dashboard({ setToast }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         
         {/* Card 1 */}
-        <div className="panel animate-fade-up delay-75 p-5 rounded-xl border border-brand-border/40 flex items-center justify-between hover-scale">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Active XML Files</p>
-            <p className="text-3xl font-extrabold text-white">{stats.xmlCount}</p>
-            <p className="text-[10px] text-blue-400 font-medium">Synchronized Device Schemas</p>
+        <div className="panel p-4 rounded border border-brand-border flex items-center justify-between hover-scale">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-brand-muted uppercase tracking-wider">Active XML Files</p>
+            <p className="text-2xl font-bold text-white">{stats.xmlCount}</p>
+            <p className="text-[11px] text-brand-muted">Active configuration schemas</p>
           </div>
-          <div className="p-3 bg-blue-950/40 border border-blue-500/20 rounded-xl text-blue-400">
-            <FileCode className="w-6 h-6" />
+          <div className="p-2 bg-brand-darker border border-brand-border rounded text-blue-400">
+            <FileCode className="w-5 h-5" />
           </div>
         </div>
 
         {/* Card 2 */}
-        <div className="panel animate-fade-up delay-75 p-5 rounded-xl border border-brand-border/40 flex items-center justify-between hover-scale">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Config Versions</p>
-            <p className="text-3xl font-extrabold text-white">{stats.versionCount}</p>
-            <p className="text-[10px] text-yellow-400 font-medium">Immutable Schema Revisions</p>
+        <div className="panel p-4 rounded border border-brand-border flex items-center justify-between hover-scale">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-brand-muted uppercase tracking-wider">Config Versions</p>
+            <p className="text-2xl font-bold text-white">{stats.versionCount}</p>
+            <p className="text-[11px] text-brand-muted">Total revision history</p>
           </div>
-          <div className="p-3 bg-yellow-950/40 border border-yellow-500/20 rounded-xl text-yellow-400">
-            <Layers className="w-6 h-6" />
+          <div className="p-2 bg-brand-darker border border-brand-border rounded text-yellow-500">
+            <Layers className="w-5 h-5" />
           </div>
         </div>
 
         {/* Card 3 */}
-        <div className="panel animate-fade-up delay-75 p-5 rounded-xl border border-brand-border/40 flex items-center justify-between hover-scale">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Active Telemetry Nodes</p>
-            <p className="text-3xl font-extrabold text-white">
-              {stats.onlineClients} <span className="text-lg font-normal text-brand-muted">/ {stats.clientCount}</span>
+        <div className="panel p-4 rounded border border-brand-border flex items-center justify-between hover-scale">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-brand-muted uppercase tracking-wider">Active Nodes</p>
+            <p className="text-2xl font-bold text-white">
+              {stats.onlineClients} <span className="text-sm font-normal text-brand-muted">/ {stats.clientCount}</span>
             </p>
-            <p className="text-[10px] text-emerald-400 font-medium">
-              {stats.onlineClients === stats.clientCount ? 'All nodes communicating' : `${stats.clientCount - stats.onlineClients} Nodes disconnected`}
+            <p className="text-[11px] text-brand-muted">
+              {stats.onlineClients === stats.clientCount ? 'All nodes reporting online' : `${stats.clientCount - stats.onlineClients} nodes disconnected`}
             </p>
           </div>
-          <div className="p-3 bg-emerald-950/40 border border-emerald-500/20 rounded-xl text-emerald-400">
-            <Radio className="w-6 h-6" />
+          <div className="p-2 bg-brand-darker border border-brand-border rounded text-emerald-400">
+            <Radio className="w-5 h-5" />
           </div>
         </div>
 
         {/* Card 4 */}
-        <div className="panel animate-fade-up delay-75 p-5 rounded-xl border border-brand-border/40 flex items-center justify-between hover-scale">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-brand-muted uppercase tracking-wider">Distributed Patches</p>
-            <p className="text-3xl font-extrabold text-white">{stats.updateCount}</p>
-            <p className="text-[10px] text-red-400 font-medium">Distributed Package Archives</p>
+        <div className="panel p-4 rounded border border-brand-border flex items-center justify-between hover-scale">
+          <div className="space-y-1.5">
+            <p className="text-xs font-medium text-brand-muted uppercase tracking-wider">Software Patches</p>
+            <p className="text-2xl font-bold text-white">{stats.updateCount}</p>
+            <p className="text-[11px] text-brand-muted">Available release packages</p>
           </div>
-          <div className="p-3 bg-red-950/40 border border-red-500/20 rounded-xl text-red-400">
-            <ArrowUpCircle className="w-6 h-6" />
+          <div className="p-2 bg-brand-darker border border-brand-border rounded text-red-400">
+            <ArrowUpCircle className="w-5 h-5" />
           </div>
         </div>
 
@@ -197,46 +197,46 @@ export default function Dashboard({ setToast }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         
         {/* Trend Area Chart */}
-        <div className="panel animate-fade-up delay-150 p-5 rounded-xl border border-brand-border/40 lg:col-span-2 space-y-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <HardDrive className="w-4 h-4 text-brand-accent" />
-            Gateway Configuration Activity Audit
+        <div className="panel p-4 rounded border border-brand-border lg:col-span-2 space-y-4">
+          <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <HardDrive className="w-4 h-4 text-blue-500" />
+            System Activity Overview
           </h2>
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorEdits" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15}/>
                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorUploads" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.15}/>
                     <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" opacity={0.5} />
-                <XAxis dataKey="date" stroke="#9ca3af" fontSize={11} />
-                <YAxis stroke="#9ca3af" fontSize={11} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.3} />
+                <XAxis dataKey="date" stroke="#64748b" fontSize={11} />
+                <YAxis stroke="#64748b" fontSize={11} allowDecimals={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#111827', borderColor: '#1f2937', color: '#f3f4f6' }}
-                  itemStyle={{ color: '#f3f4f6' }}
+                  contentStyle={{ backgroundColor: '#0e1322', borderColor: '#1e293b', color: '#f1f5f9' }}
+                  itemStyle={{ color: '#f1f5f9' }}
                 />
-                <Area type="monotone" dataKey="Edits" stroke="#3b82f6" fillOpacity={1} fill="url(#colorEdits)" strokeWidth={2} />
-                <Area type="monotone" dataKey="Uploads" stroke="#f59e0b" fillOpacity={1} fill="url(#colorUploads)" strokeWidth={2} />
+                <Area type="monotone" dataKey="Edits" stroke="#3b82f6" fillOpacity={1} fill="url(#colorEdits)" strokeWidth={1.5} />
+                <Area type="monotone" dataKey="Uploads" stroke="#f59e0b" fillOpacity={1} fill="url(#colorUploads)" strokeWidth={1.5} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Client Health distribution Pie Chart */}
-        <div className="panel animate-fade-up delay-150 p-5 rounded-xl border border-brand-border/40 space-y-4 flex flex-col justify-between">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-brand-accent" />
-            Node Connection Integrity
+        <div className="panel p-4 rounded border border-brand-border space-y-4 flex flex-col justify-between">
+          <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 text-blue-500" />
+            Client Status Distribution
           </h2>
           {stats.clientCount === 0 ? (
-            <div className="flex-1 flex items-center justify-center text-xs text-brand-muted">No client agents detected.</div>
+            <div className="flex-1 flex items-center justify-center text-xs text-brand-muted italic">No client agents detected.</div>
           ) : (
             <>
               <div className="h-44 flex items-center justify-center">
@@ -247,24 +247,24 @@ export default function Dashboard({ setToast }) {
                       cx="50%"
                       cy="50%"
                       innerRadius={50}
-                      outerRadius={70}
-                      paddingAngle={5}
+                      outerRadius={65}
+                      paddingAngle={4}
                       dataKey="value"
                     >
                       {clientStatusData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                        <Cell key={`cell-${index}`} fill={entry.color} stroke="#0e1322" strokeWidth={2} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: '#111827', borderColor: '#1f2937', color: '#f3f4f6' }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#0e1322', borderColor: '#1e293b', color: '#f1f5f9' }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex justify-around text-xs border-t border-brand-border/40 pt-4">
+              <div className="flex justify-around text-xs border-t border-brand-border/60 pt-3">
                 {clientStatusData.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                  <div key={idx} className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
                     <span className="text-brand-muted">{item.name}:</span>
-                    <span className="font-bold text-white">{item.value}</span>
+                    <span className="font-semibold text-white">{item.value}</span>
                   </div>
                 ))}
               </div>
@@ -278,48 +278,48 @@ export default function Dashboard({ setToast }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         
         {/* Recent Audit Log Feed */}
-        <div className="panel animate-fade-up delay-225 p-5 rounded-xl border border-brand-border/40 lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between border-b border-brand-border/40 pb-3">
-            <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-brand-accent" />
-              Secure Operations Ledger (Recent Logs)
+        <div className="panel p-4 rounded border border-brand-border lg:col-span-2 space-y-4">
+          <div className="flex items-center justify-between border-b border-brand-border pb-3">
+            <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <Terminal className="w-4 h-4 text-blue-500" />
+              Recent Logs
             </h2>
             <Link to="/logs" className="text-xs text-brand-accent hover:underline font-semibold">
-              Audit Trail &rarr;
+              View All Logs &rarr;
             </Link>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {recentLogs.length === 0 ? (
-              <div className="p-4 text-center text-sm text-brand-muted">No audit trails logged in system.</div>
+              <div className="p-4 text-center text-xs text-brand-muted italic">No audit logs recorded in system.</div>
             ) : (
               recentLogs.map((log) => {
-                const getActionIcon = (action) => {
+                const getActionDot = (action) => {
                   switch (action) {
                     case 'Upload':
-                      return <CheckCircle className="w-4 h-4 text-brand-success" />;
                     case 'Edit':
-                      return <CheckCircle className="w-4 h-4 text-brand-accent" />;
+                      return <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-1.5" />;
                     case 'Rollback':
-                      return <AlertTriangle className="w-4 h-4 text-brand-warning" />;
+                    case 'Restore':
+                      return <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0 mt-1.5" />;
                     case 'Delete':
-                      return <ShieldAlert className="w-4 h-4 text-brand-danger" />;
+                      return <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0 mt-1.5" />;
                     default:
-                      return <CheckCircle className="w-4 h-4 text-brand-muted" />;
+                      return <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0 mt-1.5" />;
                   }
                 };
 
                 return (
-                  <div key={log.id} className="flex items-start gap-3 p-3 bg-brand-dark/40 border border-brand-border/30 rounded-lg hover:bg-brand-dark/80 transition-colors">
-                    <div className="mt-0.5">{getActionIcon(log.action)}</div>
+                  <div key={log.id} className="flex items-start gap-3 p-2.5 bg-brand-darker border border-brand-border/40 rounded hover:bg-brand-dark transition-colors">
+                    {getActionDot(log.action)}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-bold text-gray-200">{log.action}</span>
+                        <span className="text-xs font-semibold text-gray-200">{log.action}</span>
                         <span className="text-[10px] text-brand-muted">
                           {formatLocalTime(log.timestamp)}
                         </span>
                       </div>
                       <p className="text-xs text-brand-muted mt-1 truncate">{log.detail}</p>
-                      <p className="text-[10px] text-brand-accent mt-0.5">Operator: {log.username || 'System'}</p>
+                      <p className="text-[10px] text-blue-400 mt-0.5">Operator: {log.username || 'System'}</p>
                     </div>
                   </div>
                 );
@@ -329,34 +329,36 @@ export default function Dashboard({ setToast }) {
         </div>
 
         {/* Quick Config Link / System Information Panel */}
-        <div className="panel animate-fade-up delay-225 p-5 rounded-xl border border-brand-border/40 space-y-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <Server className="w-4 h-4 text-brand-accent" />
-            Operations Security Gateway
-          </h2>
-          <p className="text-xs text-brand-muted">
-            RCSUMS orchestrates encrypted configuration transfers and cryptographic software distributions to remote industrial assets.
-          </p>
-          <div className="space-y-2.5 pt-2">
-            <div className="p-3 bg-brand-dark/60 rounded-lg border border-brand-border/40 flex items-center justify-between text-xs">
-              <span className="text-brand-muted">API Gateway:</span>
-              <span className="font-semibold text-brand-success">{API_BASE_URL}</span>
-            </div>
-            <div className="p-3 bg-brand-dark/60 rounded-lg border border-brand-border/40 flex items-center justify-between text-xs">
-              <span className="text-brand-muted">Database Engine:</span>
-              <span className="font-semibold text-white">SQLite 3 / SQLiteDB</span>
-            </div>
-            <div className="p-3 bg-brand-dark/60 rounded-lg border border-brand-border/40 flex items-center justify-between text-xs">
-              <span className="text-brand-muted">Active Network Edge Nodes:</span>
-              <span className="font-semibold text-brand-accent">{stats.clientCount}</span>
+        <div className="panel p-4 rounded border border-brand-border space-y-4 flex flex-col justify-between">
+          <div className="space-y-3">
+            <h2 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <Server className="w-4 h-4 text-blue-500" />
+              System Information
+            </h2>
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Information and active endpoint configurations for the RCSUMS management console.
+            </p>
+            <div className="space-y-2 pt-1.5">
+              <div className="p-2.5 bg-brand-darker rounded border border-brand-border/50 flex items-center justify-between text-xs">
+                <span className="text-brand-muted">API Gateway:</span>
+                <span className="font-mono text-emerald-400">http://127.0.0.1:8000</span>
+              </div>
+              <div className="p-2.5 bg-brand-darker rounded border border-brand-border/50 flex items-center justify-between text-xs">
+                <span className="text-brand-muted">Database Engine:</span>
+                <span className="font-semibold text-white">SQLite 3</span>
+              </div>
+              <div className="p-2.5 bg-brand-darker rounded border border-brand-border/50 flex items-center justify-between text-xs">
+                <span className="text-brand-muted">Total Registered Edge Nodes:</span>
+                <span className="font-semibold text-blue-400">{stats.clientCount}</span>
+              </div>
             </div>
           </div>
-          <div className="pt-2 text-center">
+          <div className="pt-3">
             <Link 
               to="/xml" 
-              className="inline-block px-4 py-2 w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs tracking-wider uppercase transition-colors shadow-md shadow-blue-950/20"
+              className="inline-block px-4 py-2 w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-medium rounded text-xs transition-colors cursor-pointer"
             >
-              Open Editor Workspace
+              Open Config Editor
             </Link>
           </div>
         </div>
