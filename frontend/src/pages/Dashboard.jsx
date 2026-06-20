@@ -8,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area 
 } from 'recharts';
-import { xmlService, clientService, updateService, logService } from '../services/api';
+import { xmlService, clientService, updateService, logService, API_BASE_URL } from '../services/api';
 import { formatShortDate, formatLocalTime } from '../utils/date';
 
 export default function Dashboard({ setToast }) {
@@ -341,7 +341,7 @@ export default function Dashboard({ setToast }) {
             <div className="space-y-2 pt-1.5">
               <div className="p-2.5 bg-brand-darker rounded border border-brand-border/50 flex items-center justify-between text-xs">
                 <span className="text-brand-muted">API Gateway:</span>
-                <span className="font-mono text-emerald-400">http://127.0.0.1:8000</span>
+                <span className="font-mono text-emerald-400">{API_BASE_URL}</span>
               </div>
               <div className="p-2.5 bg-brand-darker rounded border border-brand-border/50 flex items-center justify-between text-xs">
                 <span className="text-brand-muted">Database Engine:</span>
