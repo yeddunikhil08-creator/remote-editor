@@ -1,5 +1,5 @@
 {
-  "server_url": "http://127.0.0.1:8000",
+  "server_url": "https://remote-editor-c9ly.onrender.com",
   "client_id": "RADAR-01",
   "hostname": "RADAR-STATION-01",
   "username": "viewer",
